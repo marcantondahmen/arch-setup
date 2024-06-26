@@ -1,9 +1,9 @@
 # Marc's Arch Setup
 
-This is a simple setup script that helps with installing all basic applications and cloning my personal dotfiles to a fresh **Arch-Linux** machine using the **i3** window manager.
+This is a simple setup script that helps with installing all basic applications and [dotfiles](https://github.com/marcantondahmen/arch-dotfiles) to a fresh **Arch-Linux** machine in order to replicate a productive development environment based on **i3wm**.
 
 > [!IMPORTANT]
-> Please note that this script is my personal setup script and will clone my personal dotfiles as well. It helps to quickly replicate a productive development environment for my day job. Since your needs might differ, simply feel free to fork this repository and make it fully yours.
+> Please note that this is my personal setup script for my work machine. It helps to quickly replicate my development environment for my day job. Since your needs might differ, simply feel free to fork this repository and make it fully yours.
 
 ## Preperations
 
