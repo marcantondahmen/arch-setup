@@ -1,49 +1,68 @@
-#! /bin/bash
-
-tmpDir="/tmp/mad"
-
-mkdir "$tmpDir"
-cd "$tmpDir"
-
-echo "Setting up Git and Yay ..."
-
-sudo pacman -S --needed git base-devel
-
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
+#!/bin/bash
 
 echo "--------------------------------------------------"
 echo "Installing packages ..."
 
 sudo pacman -Syu --noconfirm --needed \
-	curl \
-	wezterm \
-	neovim \
-	fzf \
+	base-devel \
 	bat \
-	tmux \
-	gitui \
-	github-cli \
-	firefox \
-	dunst \
-	tig \
-	starship \
-	ripgrep \
-	fd \
-	sad \
+	curl \
 	docker \
 	docker-compose \
-	zsh \
+	dunst \
+	fd \
+	firefox \
+	fzf \
+	git \
+	github-cli \
+	gitui \
+	gnome-keyring \
+	hsetroot \
+	man-db \
+	neovim \
+	nodejs \
+	npm \
+	picom \
 	python \
 	python-pip \
 	python-pynvim \
-	nodejs \
-	npm \
-	ttf-jetbrains-mono-nerd
+	ripgrep \
+	rofi \
+	sad \
+	starship \
+	tig \
+	tmux \
+	tree-sitter \
+	ttf-jetbrains-mono-nerd \
+	unzip \
+	wezterm \
+	xclip \
+	yazi \
+	zsh
 
-yay -S google-chrome
-yay -S lazydocker
+yayDir="$HOME/.yay"
+yayPkgs="autotiling google-chrome lazydocker polybar"
+
+if [ ! -d "$yayDir" ]; then
+	mkdir "$yayDir"
+	cd "$yayDir"
+	git clone https://aur.archlinux.org/yay.git
+	cd yay
+	makepkg -si
+fi
+
+for item in $yayPkgs; do
+	echo "Installing $item ..."
+
+	file="$yayDir/.$item"
+
+	if [ ! -f "$file" ]; then
+		yay -S --norebuild $item
+		touch "$file"
+	fi
+done
+
+xdg-settings set default-web-browser google-chrome.desktop
 
 echo "--------------------------------------------------"
 echo "Setting up NVM ..."
@@ -59,7 +78,10 @@ echo "--------------------------------------------------"
 echo "Setting up zsh ..."
 
 chsh -s $(which zsh)
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+
+if [ ! -d "$HOME/.zsh/zsh-autosuggestions/" ]; then
+	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+fi
 
 echo "--------------------------------------------------"
 echo "Setting up Docker ..."
@@ -68,35 +90,38 @@ sudo systemctl start docker.service
 sudo systemctl enable docker.service
 sudo usermod -aG docker $USER
 
-echo "--------------------------------------------------"
-echo "Setting up Git and GitHub ..."
+if [ ! -f "$HOME/.gitconfig" ]; then
+	echo "--------------------------------------------------"
+	echo "Setting up Git and GitHub ..."
 
-read -p "Git username: " gitUser
-read -p "Git email: " gitEmail
+	read -p "Git username: " gitUser
+	read -p "Git email: " gitEmail
 
-git config --global user.name "$gitUser"
-git config --global user.email "$gitEmail"
+	git config --global user.name "$gitUser"
+	git config --global user.email "$gitEmail"
 
-xdg-settings set default-web-browser firefox.desktop
-gh auth login
-gh auth status
+	gh auth setup-git
+fi
 
-echo "--------------------------------------------------"
-echo "Cloning dotfiles ..."
+if [ ! -d "$HOME/.dotfiles" ]; then
+	echo "--------------------------------------------------"
+	echo "Cloning dotfiles ..."
 
-git clone --bare https://github.com/marcantondahmen/arch-dotfiles.git $HOME/.dotfiles
-git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
-git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
+	git clone --bare https://github.com/marcantondahmen/arch-dotfiles.git $HOME/.dotfiles
+	git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
+	git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
+fi
 
 echo "--------------------------------------------------"
 echo "Setting up Neovim ..."
 
-sudo npm install -g neovim
+if [ ! -d "$HOME/.config/nvim/" ]; then
+	git clone https://github.com/marcantondahmen/nvim-config.git ~/.config/nvim
+	npm install -g neovim
+	npm install -g tree-sitter-cli
+fi
 
-git clone https://github.com/marcantondahmen/nvim-config.git ~/.config/nvim
-
-xdg-settings set default-web-browser google-chrome.desktop
-
-rm -rf "$tmpDir"
-
-echo "Open Neovim and run PackerSync command in order to install plugins."
+echo
+echo "Please open Neovim and run PackerSync command in order to install plugins."
+echo
+echo "Afterwards, reboot your machine!"
