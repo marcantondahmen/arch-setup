@@ -6,6 +6,7 @@ echo "Installing packages ..."
 sudo pacman -Syu --noconfirm --needed \
 	base-devel \
 	bat \
+	composer \
 	curl \
 	docker \
 	docker-compose \
@@ -22,6 +23,7 @@ sudo pacman -Syu --noconfirm --needed \
 	neovim \
 	nodejs \
 	npm \
+	php \
 	picom \
 	python \
 	python-pip \
