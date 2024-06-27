@@ -38,12 +38,15 @@ sudo pacman -Syu --noconfirm --needed \
 	ttf-jetbrains-mono-nerd \
 	unzip \
 	wezterm \
+	xautolock \
 	xclip \
 	yazi \
 	zsh
 
+sudo pacman -R --noconfirm i3lock
+
 yayDir="$HOME/.yay"
-yayPkgs="autotiling google-chrome lazydocker polybar"
+yayPkgs="autotiling google-chrome lazydocker polybar i3lock-color"
 
 if [ ! -d "$yayDir" ]; then
 	mkdir "$yayDir"
@@ -59,7 +62,7 @@ for item in $yayPkgs; do
 	file="$yayDir/.$item"
 
 	if [ ! -f "$file" ]; then
-		yay -S --norebuild $item
+		yay -S --norebuild --answerdiff=None --noconfirm $item
 		touch "$file"
 	fi
 done
