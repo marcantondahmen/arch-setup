@@ -69,6 +69,12 @@ done
 
 xdg-settings set default-web-browser google-chrome.desktop
 
+greeterConf="/tmp/slick-greeter.conf"
+echo "[Greeter]" >$greeterConf
+echo "background=#1f2335" >>$greeterConf
+mkdir -p /etc/lightdm
+sudo mv $greeterConf /etc/lightdm/slick-greeter.conf
+
 echo "--------------------------------------------------"
 echo "Setting up NVM ..."
 
@@ -114,7 +120,7 @@ if [ ! -d "$HOME/.dotfiles" ]; then
 
 	git clone --bare https://github.com/marcantondahmen/arch-dotfiles.git $HOME/.dotfiles
 	git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
-	git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout
+	git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout -f
 fi
 
 echo "--------------------------------------------------"
