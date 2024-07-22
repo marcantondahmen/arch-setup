@@ -19,8 +19,10 @@ sudo pacman -Syu --noconfirm --needed \
 	gitui \
 	gnome-keyring \
 	hsetroot \
+	libnotify \
 	man-db \
 	neovim \
+	networkmanager \
 	nodejs \
 	npm \
 	php \
@@ -40,6 +42,7 @@ sudo pacman -Syu --noconfirm --needed \
 	wezterm \
 	xautolock \
 	xclip \
+	xorg-xinput \
 	yazi \
 	zsh
 
@@ -113,6 +116,21 @@ if [ ! -f "$HOME/.gitconfig" ]; then
 
 	gh auth setup-git
 fi
+
+echo "--------------------------------------------------"
+echo "Network services ..."
+
+sudo systemctl enable systemd-networkd.service
+sudo systemctl start systemd-networkd.service
+
+sudo systemctl enable systemd-resolved.service
+sudo systemctl start systemd-resolved.service
+
+sudo systemctl enable NetworkManager.service
+sudo systemctl start NetworkManager.service
+
+sudo systemctl enable iwd.service
+sudo systemctl start iwd.service
 
 if [ ! -d "$HOME/.dotfiles" ]; then
 	echo "--------------------------------------------------"
