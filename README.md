@@ -15,7 +15,8 @@ When the installation has finished, simply boot into the fresh installation, ope
 
 1. Run the setup script as follows:
    ```bash
-   wget -qO - https://raw.githubusercontent.com/marcantondahmen/arch-setup/master/setup.sh | bash
+   curl -OL https://raw.githubusercontent.com/marcantondahmen/arch-setup/master/setup.sh
+   bash setup.sh
    ```
 2. Open Neovim and run `PackerSync`.
 3. Reboot the machine.
