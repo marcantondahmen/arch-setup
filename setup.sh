@@ -135,6 +135,15 @@ sudo systemctl start systemd-resolved.service
 sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service
 
+timeSyncConf="timesyncd.conf"
+echo "[Time]" >$timeSyncConf
+echo "NTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org" >>$timeSyncConf
+echo "FallbackNTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org" >>$timeSyncConf
+sudo mv $timeSyncConf /etc/systemd/
+
+sudo systemctl enable systemd-timesyncd.service
+sudo systemctl start systemd-timesyncd.service
+
 if [ ! -d "$HOME/.dotfiles" ]; then
 	echo "--------------------------------------------------"
 	echo "Cloning dotfiles ..."
