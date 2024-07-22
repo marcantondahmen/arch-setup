@@ -22,6 +22,16 @@ When the installation has finished, simply boot into the fresh installation, ope
 3. Reboot the machine.
 4. Authenticate to GitHub using the `gh auth login`.
 
+## Display Settings
+
+The display resolution can be set with `xrandr`. For example scaling the resolution for a laptop screen can be done as follows:
+
+```bash
+xrandr --output eDP-1 --auto --scale 0.675
+```
+
+In order to persist display settigs, add the command above to `~/.xprofile`.
+
 ---
 
 &copy; 2024 Marc Anton Dahmen, MIT license
