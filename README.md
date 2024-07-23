@@ -22,15 +22,58 @@ When the installation has finished, simply boot into the fresh installation, ope
 3. Reboot the machine.
 4. Authenticate to GitHub using the `gh auth login`.
 
-## Display and Cursor
+## Post-Install
 
-The display resolution can be set with `xrandr`. For example scaling the resolution for a laptop screen can be done as follows:
+### Monitors
+
+This setup includes [autorandr](https://github.com/phillipberndt/autorandr) that let's you easily save and change monitor configurations that have been created using `xrandr`.
+
+In order to save the current setup, run:
 
 ```bash
-xrandr --output eDP-1 --auto --scale 0.675
+autorandr --save somename
 ```
 
-In order to persist display settigs, add the command above to `~/.xprofile`.
+Run this to automatically load the current setup:
+
+```bash
+autorandr --change
+```
+
+#### Example
+
+Setting up a dual-monitor configuration where a laptop has sometimes a secondary screen attached can be realized as follows:
+
+1. First, only the laptop: Disconnect all other screens and run `xrandr` to configure the built-in screen. For example:
+
+   ```bash
+   xrandr --output eDP-1 --auto --scale 0.675
+   ```
+
+2. Save the _mobile_ config as follows:
+
+   ```bash
+   autorandr --save mobile
+   ```
+
+3. Reboot
+
+4. Attach the secondary screen and also configure it using `xrandr`:
+
+   ```bash
+   xrandr --output eDP-1 --auto --scale 0.675
+   xrandr --output DP-2 --auto --scale 1 --right-of eDP-1 --primary
+   ```
+
+5. Save the _home office_ configuration:
+
+   ```bash
+   autorandr --save home
+   ```
+
+Now changes of the connected monitors should be detected correctly.
+
+### Cursor
 
 Also it might be needed to set a correct size for the cursor. The cursor size can be defined by adding the following line to `~/.Xresources`:
 
@@ -38,10 +81,9 @@ Also it might be needed to set a correct size for the cursor. The cursor size ca
 Xcursor.size: 10
 ```
 
-Then load the `.Xresources` after the `xrandr` command in your `~/.xprofile`:
+Then load the `.Xresources` in your `~/.xprofile`:
 
 ```bash
-xrandr --output eDP-1 --auto --scale 0.675
 xrdb -merge ~/.Xresources
 ```
 

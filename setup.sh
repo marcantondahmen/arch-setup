@@ -4,6 +4,7 @@ echo "--------------------------------------------------"
 echo "Installing packages ..."
 
 sudo pacman -Syu --noconfirm --needed \
+	autorandr \
 	base-devel \
 	bat \
 	brightnessctl \
