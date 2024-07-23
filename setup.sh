@@ -120,6 +120,12 @@ fi
 echo "--------------------------------------------------"
 echo "Network services ..."
 
+sudo mkdir -p "/etc/NetworkManager/conf.d"
+iwdBackend="wifi_backend.conf"
+echo "[device]" >$iwdBackend
+echo "wifi.backend=iwd" >>$iwdBackend
+sudo mv $iwdBackend /etc/NetworkManager/conf.d/
+
 sudo systemctl enable systemd-networkd.service
 sudo systemctl start systemd-networkd.service
 
@@ -128,9 +134,6 @@ sudo systemctl start systemd-resolved.service
 
 sudo systemctl enable NetworkManager.service
 sudo systemctl start NetworkManager.service
-
-sudo systemctl enable iwd.service
-sudo systemctl start iwd.service
 
 if [ ! -d "$HOME/.dotfiles" ]; then
 	echo "--------------------------------------------------"
