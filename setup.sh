@@ -46,13 +46,14 @@ sudo pacman -Syu --noconfirm --needed \
 	xautolock \
 	xclip \
 	xorg-xinput \
+	xss-lock \
 	yazi \
 	zsh
 
 sudo pacman -R --noconfirm i3lock
 
 yayDir="$HOME/.yay"
-yayPkgs="autotiling google-chrome lazydocker polybar i3lock-color"
+yayPkgs="autotiling google-chrome lazydocker polybar"
 
 if [ ! -d "$yayDir" ]; then
 	mkdir "$yayDir"
@@ -68,13 +69,29 @@ for item in $yayPkgs; do
 	file="$yayDir/.$item"
 
 	if [ ! -f "$file" ]; then
-		yay -S --norebuild --answerdiff=None --noconfirm $item
+		yay -S --answerdiff=None --noconfirm $item
 		touch "$file"
 	fi
 done
 
+# Clean caches
+sudo pacman -Sc --noconfirm
+sudo yay -Sc --noconfirm
+
+# Clone and build i3lock-color
+lockTemp="/tmp/i3lockColorBuild"
+mkdir $lockTemp
+(
+	cd $lockTemp
+	git clone https://github.com/Raymo111/i3lock-color.git
+	cd i3lock-color
+	bash install-i3lock-color.sh
+)
+rm -rf $lockTemp
+
 xdg-settings set default-web-browser google-chrome.desktop
 
+# Greeter config
 greeterConf="/tmp/slick-greeter.conf"
 echo "[Greeter]" >$greeterConf
 echo "background=#1f2335" >>$greeterConf
