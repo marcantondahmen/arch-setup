@@ -6,6 +6,7 @@ echo "Installing packages ..."
 sudo pacman -Syu --noconfirm --needed \
 	base-devel \
 	bat \
+	brightnessctl \
 	composer \
 	curl \
 	docker \
@@ -35,6 +36,7 @@ sudo pacman -Syu --noconfirm --needed \
 	sad \
 	starship \
 	tig \
+	tlp \
 	tmux \
 	tree-sitter \
 	ttf-jetbrains-mono-nerd \
@@ -116,6 +118,12 @@ if [ ! -f "$HOME/.gitconfig" ]; then
 
 	gh auth setup-git
 fi
+
+echo "--------------------------------------------------"
+echo "Power management service ..."
+
+sudo systemctl enable tlp.service
+sudo systemctl start tlp.service
 
 echo "--------------------------------------------------"
 echo "Network services ..."
