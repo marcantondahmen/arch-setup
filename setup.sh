@@ -9,19 +9,23 @@ sudo pacman -Syu --noconfirm --needed \
 	bat \
 	brightnessctl \
 	composer \
+	cronie \
 	curl \
 	docker \
 	docker-compose \
 	dunst \
 	fd \
 	firefox \
+	fuse3 \
 	fzf \
 	git \
 	github-cli \
 	gitui \
 	gnome-keyring \
 	hsetroot \
+	keepassxc \
 	libnotify \
+	maim \
 	man-db \
 	neovim \
 	networkmanager \
@@ -29,9 +33,11 @@ sudo pacman -Syu --noconfirm --needed \
 	npm \
 	php \
 	picom \
+	playerctl \
 	python \
 	python-pip \
 	python-pynvim \
+	rclone \
 	ripgrep \
 	rofi \
 	sad \
@@ -52,6 +58,9 @@ sudo pacman -Syu --noconfirm --needed \
 
 yayDir="$HOME/.yay"
 yayPkgs="autotiling google-chrome lazydocker polybar teams"
+installedApps="$HOME/.cache/installed"
+
+mkdir "$installedApps"
 
 if [ ! -d "$yayDir" ]; then
 	mkdir "$yayDir"
@@ -64,7 +73,7 @@ fi
 for item in $yayPkgs; do
 	echo "Installing $item ..."
 
-	file="$yayDir/.$item"
+	file="$installedApps/$item"
 
 	if [ ! -f "$file" ]; then
 		yay -S --answerdiff=None --noconfirm $item
@@ -77,17 +86,24 @@ sudo pacman -Sc --noconfirm
 sudo yay -Sc --noconfirm
 
 # Replace i3lock with i3lock-color
-sudo pacman -R --noconfirm i3lock
 
-lockTemp="/tmp/i3lockColorBuild"
-mkdir $lockTemp
-(
-	cd $lockTemp
-	git clone https://github.com/Raymo111/i3lock-color.git
-	cd i3lock-color
-	bash install-i3lock-color.sh
-)
-rm -rf $lockTemp
+i3lockInstalled="$installedApps/i3lock-color"
+
+if [ ! -f "$i3lockInstalled" ]; then
+	sudo pacman -R --noconfirm i3lock
+	lockTemp="/tmp/i3lockColorBuild"
+	mkdir -p $lockTemp
+
+	(
+		cd $lockTemp
+		git clone https://github.com/Raymo111/i3lock-color.git
+		cd i3lock-color
+		bash install-i3lock-color.sh
+		touch "$i3lockInstalled"
+	)
+
+	rm -rf $lockTemp
+fi
 
 xdg-settings set default-web-browser google-chrome.desktop
 
@@ -136,6 +152,12 @@ if [ ! -f "$HOME/.gitconfig" ]; then
 
 	gh auth setup-git
 fi
+
+echo "--------------------------------------------------"
+echo "Cron service ..."
+
+sudo systemctl enable cronie.service
+sudo systemctl start cronie.service
 
 echo "--------------------------------------------------"
 echo "Power management service ..."
