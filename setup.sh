@@ -50,10 +50,8 @@ sudo pacman -Syu --noconfirm --needed \
 	yazi \
 	zsh
 
-sudo pacman -R --noconfirm i3lock
-
 yayDir="$HOME/.yay"
-yayPkgs="autotiling google-chrome lazydocker polybar"
+yayPkgs="autotiling google-chrome lazydocker polybar teams"
 
 if [ ! -d "$yayDir" ]; then
 	mkdir "$yayDir"
@@ -78,7 +76,9 @@ done
 sudo pacman -Sc --noconfirm
 sudo yay -Sc --noconfirm
 
-# Clone and build i3lock-color
+# Replace i3lock with i3lock-color
+sudo pacman -R --noconfirm i3lock
+
 lockTemp="/tmp/i3lockColorBuild"
 mkdir $lockTemp
 (
