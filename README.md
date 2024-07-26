@@ -1,48 +1,81 @@
 # Marc's Arch Setup
 
-This is a simple setup script that helps with installing applications, [dotfiles](https://github.com/marcantondahmen/arch-dotfiles) and a Neovim [configuration](https://github.com/marcantondahmen/nvim-config) to a fresh **Arch-Linux** machine in order to replicate a productive development environment based on **i3wm**, **tmux** and other minimalistic terminal apps.
+This is a simple setup script that helps with installing applications, [dotfiles](https://github.com/marcantondahmen/arch-dotfiles) and a Neovim [configuration](https://github.com/marcantondahmen/nvim-config) to a fresh [Arch-Linux](https://archlinux.org/) machine in order to replicate a productive development environment based on [i3wm](https://i3wm.org/), [tmux](https://github.com/tmux/tmux) and other minimalistic terminal apps.
+
+![Screenshot](screenshot.png)
 
 > [!IMPORTANT]
 > Please note that this is my personal setup script for my work machine. It helps to quickly replicate my development environment for my day job. Since your needs might differ, simply feel free to fork this repository and make it fully yours.
 
+---
+
+<!-- vim-markdown-toc GFM -->
+
+- [Preperations](#preperations)
+- [Setup](#setup)
+- [Optional Steps](#optional-steps)
+  - [Authenticate to GitHub](#authenticate-to-github)
+  - [Monitor Setup](#monitor-setup)
+    - [Example Dual-Monitor Setup](#example-dual-monitor-setup)
+  - [Cursor Size](#cursor-size)
+  - [Connect Google Drive](#connect-google-drive)
+  - [Patched Kernels](#patched-kernels)
+    - [Surface Laptops](#surface-laptops)
+  - [Thermald Setup](#thermald-setup)
+
+<!-- vim-markdown-toc -->
+
 ## Preperations
 
-This setup assumes that Arch-Linux is installed using the `archinstall` command. During the installation process it is required that **i3** is selected as the window manager when selecting the environment. Also make sure to select `LightDM/slick-greeter` as your greeter.
+This setup assumes that Arch-Linux is installed using the `archinstall` command. During the installation process it is required that _i3-wm_ is selected as the window manager when selecting the environment. Also make sure to select `LightDM/slick-greeter` as your greeter.
 
-When the installation has finished, simply boot into the fresh installation, open the default terminal with `Super+Return` and follow the steps below.
+When the installation has finished, simply boot into the fresh installation, open the default terminal follow the steps below.
 
 ## Setup
 
-1. Run the setup script as follows:
+The basic setup is quite straight forward and requires the following steps:
+
+1. Download and run the setup script:
+
    ```bash
    curl -OL https://raw.githubusercontent.com/marcantondahmen/arch-setup/master/setup.sh
    bash setup.sh
    ```
-2. Open Neovim and run `PackerSync`.
+
+2. Open Neovim and run `PackerSync`. It is possible that Neovim has to be restarted multiple time in order to complete the setup.
 3. Reboot the machine.
-4. Authenticate to GitHub using the `gh auth login`.
 
-## Post-Install
+## Optional Steps
 
-### Monitors
+The following steps are optional and might also depend on the machine Arch-Linux is running on.
 
-This setup includes [autorandr](https://github.com/phillipberndt/autorandr) that let's you easily save and change monitor configurations that have been created using `xrandr`.
+### Authenticate to GitHub
 
-In order to save the current setup, run:
+This setup ships with the _GitHub CLI_. It can be used to authenticate your machine to GitHub running:
+
+```bash
+gh auth login
+```
+
+### Monitor Setup
+
+You can easily store and switch between multiple display profiles with [autorandr](https://github.com/phillipberndt/autorandr). Monitor configuration can be changed using `xrandr`.
+
+In order to save the currently used setup, run:
 
 ```bash
 autorandr --save somename
 ```
 
-Run this to automatically load the current setup:
+You can run the following command to automatically load the current setup:
 
 ```bash
 autorandr --change
 ```
 
-#### Example
+#### Example Dual-Monitor Setup
 
-Setting up a dual-monitor configuration where a laptop has sometimes a secondary screen attached can be realized as follows:
+Setting up a dual-monitor configuration where a laptop has _sometimes_ a secondary screen attached can be realized as follows:
 
 1. First, only the laptop: Disconnect all other screens and run `xrandr` to configure the built-in screen. For example:
 
@@ -56,14 +89,16 @@ Setting up a dual-monitor configuration where a laptop has sometimes a secondary
    autorandr --save mobile
    ```
 
-3. Reboot
+3. Reboot, just in case.
 
-4. Attach the secondary screen and also configure it using `xrandr`:
+4. Attach the secondary screen configure both displays using `xrandr` as follows:
 
    ```bash
    xrandr --output eDP-1 --auto --scale 0.675
    xrandr --output DP-2 --auto --scale 1 --right-of eDP-1 --primary
    ```
+
+   Note that in this step the Laptop screen is configured as well!
 
 5. Save the _home office_ configuration:
 
@@ -73,9 +108,9 @@ Setting up a dual-monitor configuration where a laptop has sometimes a secondary
 
 Now changes of the connected monitors should be detected correctly.
 
-### Cursor
+### Cursor Size
 
-Also it might be needed to set a correct size for the cursor. The cursor size can be defined by adding the following line to `~/.Xresources`:
+It also might be needed to set a correct size for the cursor. The cursor size can be defined by adding the following line to `~/.Xresources`:
 
 ```bash
 Xcursor.size: 10
@@ -86,6 +121,58 @@ Then load the `.Xresources` in your `~/.xprofile`:
 ```bash
 xrdb -merge ~/.Xresources
 ```
+
+### Connect Google Drive
+
+You can use [Rclone](https://rclone.org/) in order to connect and mount a _Google Drive_. It is also pre-installed in this setup.
+
+1. Configure Rclone:
+
+   ```bash
+   rclone config
+   ```
+
+   Note that you can authenticate using the browser and therefore all keys and token fields can be left empty.
+
+2. Mount the drive:
+
+   ```bash
+   mkdir -p ~/gdrive
+   rclone mount gdrive: ~/gdrive
+   ```
+
+3. Automatically mount on boot:
+
+   ```bash
+   (crontab -l 2>/dev/null; echo "@reboot rclone mount --daemon gdrive: $HOME/gdrive") | crontab -
+   ```
+
+### Patched Kernels
+
+Some laptops require some work in order to get them running properly. For example it might be required to use a specific patched kernel that matches your machine.
+
+#### Surface Laptops
+
+In case you are using a surface laptop, the best is to install a kernel from the [linux-surface](https://github.com/linux-surface/linux-surface) project. This will most likely help to make things like sleep, shutdown and other issues work.
+
+### Thermald Setup
+
+Generally, using `thermald` can help to keep your quite and cool. Since this step is entirely optional, the default setup doesn't include `thermald` out of the box. Follow these steps to install and configure the _thermald_ service.
+
+1. Install `thermald`:
+
+   ```bash
+   sudo pacman -S thermald
+   ```
+
+2. Add a configuration file (`thermal-conf.xml`) to the `/etc/thermald/` directory. You find macthing configurations on the internet. One that can be used for Surface Laptops can be found [here](https://github.com/linux-surface/linux-surface/tree/master/contrib/thermald).
+
+3. Enable service:
+
+   ```bash
+   sudo systemclt enable thermald.service
+   sudo systemclt start thermald.service
+   ```
 
 ---
 
