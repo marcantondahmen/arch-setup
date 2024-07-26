@@ -57,7 +57,7 @@ sudo pacman -Syu --noconfirm --needed \
 	zsh
 
 yayDir="$HOME/.yay"
-yayPkgs="autotiling google-chrome lazydocker polybar teams"
+yayPkgs="autotiling google-chrome lazydocker polybar teams slack-desktop"
 installedApps="$HOME/.cache/installed"
 
 mkdir "$installedApps"
