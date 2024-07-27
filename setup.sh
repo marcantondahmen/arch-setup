@@ -30,6 +30,7 @@ sudo pacman -Syu --noconfirm --needed \
 	neovim \
 	networkmanager \
 	nodejs \
+	noto-fonts-emoji \
 	npm \
 	php \
 	picom \
@@ -86,7 +87,6 @@ sudo pacman -Sc --noconfirm
 sudo yay -Sc --noconfirm
 
 # Replace i3lock with i3lock-color
-
 i3lockInstalled="$installedApps/i3lock-color"
 
 if [ ! -f "$i3lockInstalled" ]; then
