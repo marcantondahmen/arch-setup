@@ -29,6 +29,7 @@ sudo pacman -Syu --noconfirm --needed \
 	man-db \
 	neovim \
 	networkmanager \
+	network-manager-applet \
 	nodejs \
 	noto-fonts-emoji \
 	npm \
@@ -58,7 +59,7 @@ sudo pacman -Syu --noconfirm --needed \
 	zsh
 
 yayDir="$HOME/.yay"
-yayPkgs="autotiling google-chrome lazydocker polybar teams slack-desktop"
+yayPkgs="autotiling google-chrome lazydocker polybar teams slack-desktop lssecret-git"
 installedApps="$HOME/.cache/installed"
 
 mkdir "$installedApps"
