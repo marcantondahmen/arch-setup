@@ -18,6 +18,7 @@ This is a simple setup script that helps with installing applications, [dotfiles
   - [Monitor Setup](#monitor-setup)
     - [Example Dual-Monitor Setup](#example-dual-monitor-setup)
   - [Cursor Size](#cursor-size)
+  - [Bluetooth](#bluetooth)
   - [Connect Google Drive](#connect-google-drive)
   - [Patched Kernels](#patched-kernels)
     - [Surface Laptops](#surface-laptops)
@@ -121,6 +122,10 @@ Then load the `.Xresources` in your `~/.xprofile`:
 ```bash
 xrdb -merge ~/.Xresources
 ```
+
+### Bluetooth
+
+The bluetooth utility `bluetoothctl` is included in this setup. You can follow [this guide](https://wiki.archlinux.org/title/Bluetooth#Pairing) in order to pair your devices.
 
 ### Connect Google Drive
 

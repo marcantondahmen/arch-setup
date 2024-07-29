@@ -7,6 +7,8 @@ sudo pacman -Syu --noconfirm --needed \
 	autorandr \
 	base-devel \
 	bat \
+	bluez \
+	bluez-utils \
 	brightnessctl \
 	composer \
 	cronie \
@@ -165,6 +167,12 @@ echo "Power management service ..."
 
 sudo systemctl enable tlp.service
 sudo systemctl start tlp.service
+
+echo "--------------------------------------------------"
+echo "Bluetooth service ..."
+
+sudo systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service
 
 echo "--------------------------------------------------"
 echo "Network services ..."
