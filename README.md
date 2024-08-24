@@ -1,6 +1,6 @@
 # Marc's Arch Setup
 
-This is a simple setup script that helps with installing applications, [dotfiles](https://github.com/marcantondahmen/arch-dotfiles) and a Neovim [configuration](https://github.com/marcantondahmen/nvim-config) to a fresh [Arch-Linux](https://archlinux.org/) machine in order to replicate a productive development environment based on [i3wm](https://i3wm.org/), [tmux](https://github.com/tmux/tmux) and other minimalistic terminal apps.
+This is a simple setup script that helps with installing applications, [dotfiles](https://github.com/marcantondahmen/dotfiles) and a Neovim [configuration](https://github.com/marcantondahmen/nvim-config) to a fresh [Arch-Linux](https://archlinux.org/) machine in order to replicate a productive development environment based on [i3wm](https://i3wm.org/), [tmux](https://github.com/tmux/tmux) and other minimalistic terminal apps.
 
 ![Screenshot](screenshot.png)
 

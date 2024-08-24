@@ -46,6 +46,7 @@ sudo pacman -Syu --noconfirm --needed \
 	rofi \
 	sad \
 	starship \
+	stow \
 	tig \
 	tlp \
 	tmux \
@@ -201,13 +202,15 @@ sudo mv $timeSyncConf /etc/systemd/
 sudo systemctl enable systemd-timesyncd.service
 sudo systemctl start systemd-timesyncd.service
 
-if [ ! -d "$HOME/.dotfiles" ]; then
+if [ ! -d "$HOME/dotfiles" ]; then
 	echo "--------------------------------------------------"
 	echo "Cloning dotfiles ..."
 
-	git clone --bare https://github.com/marcantondahmen/arch-dotfiles.git $HOME/.dotfiles
-	git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
-	git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME checkout -f
+	(
+		git clone https://github.com/marcantondahmen/dotfiles.git $HOME/dotfiles
+		cd $HOME/dotfiles
+		stow */
+	)
 fi
 
 echo "--------------------------------------------------"
