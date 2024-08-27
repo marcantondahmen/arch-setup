@@ -46,6 +46,9 @@ The basic setup is quite straight forward and requires the following steps:
 2. Open Neovim and run `PackerSync`. It is possible that Neovim has to be restarted multiple time in order to complete the setup.
 3. Reboot the machine.
 
+> [!NOTE]
+> Pacman logs can be found in `~/.arch-setup-logs`.
+
 ## Optional Steps
 
 The following steps are optional and might also depend on the machine Arch-Linux is running on.

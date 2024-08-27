@@ -3,6 +3,10 @@
 echo "--------------------------------------------------"
 echo "Installing packages ..."
 
+logDir="$HOME/.arch-setup-logs"
+log="$logDir/$(date +%y%m%d-%H%M%S)-pacman-log.txt"
+mkdir -p $logDir
+
 sudo pacman -Syu --noconfirm --needed \
 	autorandr \
 	base-devel \
@@ -60,7 +64,7 @@ sudo pacman -Syu --noconfirm --needed \
 	xorg-xinput \
 	xss-lock \
 	yazi \
-	zsh
+	zsh 2>&1 | tee $log
 
 yayDir="$HOME/.yay"
 yayPkgs="autotiling google-chrome lazydocker polybar teams slack-desktop lssecret-git"
