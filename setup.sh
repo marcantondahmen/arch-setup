@@ -66,7 +66,7 @@ yayDir="$HOME/.yay"
 yayPkgs="autotiling google-chrome lazydocker polybar teams slack-desktop lssecret-git"
 installedApps="$HOME/.cache/installed"
 
-mkdir "$installedApps"
+mkdir -p "$installedApps"
 
 if [ ! -d "$yayDir" ]; then
 	mkdir "$yayDir"
