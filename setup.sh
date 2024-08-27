@@ -123,15 +123,17 @@ echo "background=#1f2335" >>$greeterConf
 mkdir -p /etc/lightdm
 sudo mv $greeterConf /etc/lightdm/slick-greeter.conf
 
-echo "--------------------------------------------------"
-echo "Setting up NVM ..."
+if [ ! -d "$HOME/.nvm" ]; then
+	echo "--------------------------------------------------"
+	echo "Setting up NVM ..."
 
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-nvm install --lts
+	nvm install --lts
+fi
 
 echo "--------------------------------------------------"
 echo "Setting up zsh ..."
