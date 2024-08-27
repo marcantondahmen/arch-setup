@@ -38,6 +38,7 @@ sudo pacman -Syu --noconfirm --needed \
 	php \
 	picom \
 	playerctl \
+	postgresql-libs \
 	python \
 	python-pip \
 	python-pynvim \
