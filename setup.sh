@@ -30,6 +30,7 @@ sudo pacman -Syu --noconfirm --needed \
 	gnome-keyring \
 	hsetroot \
 	keepassxc \
+	inter-font \
 	libnotify \
 	maim \
 	man-db \
@@ -37,6 +38,8 @@ sudo pacman -Syu --noconfirm --needed \
 	networkmanager \
 	network-manager-applet \
 	nodejs \
+	noto-fonts \
+	noto-fonts-cjk \
 	noto-fonts-emoji \
 	npm \
 	php \
