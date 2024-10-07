@@ -20,7 +20,7 @@ This is a simple setup script that helps with installing applications, [dotfiles
   - [Cursor Size](#cursor-size)
   - [Bluetooth](#bluetooth)
   - [Connect Google Drive](#connect-google-drive)
-  - [Patched Kernels](#patched-kernels)
+  - [Device Specific Issues](#device-specific-issues)
     - [Surface Laptops](#surface-laptops)
   - [Thermald Setup](#thermald-setup)
 
@@ -155,13 +155,15 @@ You can use [Rclone](https://rclone.org/) in order to connect and mount a _Googl
    (crontab -l 2>/dev/null; echo "@reboot rclone mount --daemon gdrive: $HOME/gdrive") | crontab -
    ```
 
-### Patched Kernels
+### Device Specific Issues
 
-Some laptops require some work in order to get them running properly. For example it might be required to use a specific patched kernel that matches your machine.
+Some laptops require some work in order to get them running properly. For example it might be required to use a specific patched kernel that matches your machine or modify the boot loader options.
 
 #### Surface Laptops
 
 In case you are using a surface laptop, the best is to install a kernel from the [linux-surface](https://github.com/linux-surface/linux-surface) project. This will most likely help to make things like sleep, shutdown and other issues work.
+
+Also it could be that a lot of ACPI errors show up on shutdown and in `journalctl`. In such case adding `pci=nommconf` to the boot loader options might fix those issues.
 
 ### Thermald Setup
 
