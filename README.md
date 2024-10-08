@@ -163,7 +163,10 @@ Some laptops require some work in order to get them running properly. For exampl
 
 In case you are using a surface laptop, the best is to install a kernel from the [linux-surface](https://github.com/linux-surface/linux-surface) project. This will most likely help to make things like sleep, shutdown and other issues work.
 
-Also it could be that a lot of ACPI errors show up on shutdown and in `journalctl`. In such case adding a `acpi_osi` [kernel parameter](https://forum.manjaro.org/t/how-to-choose-the-proper-acpi-kernel-argument/1405) to the boot loader options might fix those issues. For example if a Surface Laptop 5 is also running Windows 10 in parallel, the parameter would be `acpi_osi='Windows 2020'`.
+Also it could be that a lot of ACPI errors show up on shutdown and in `journalctl`. In such case adding the `acpi_osi` and `pci` kernel parameters to the boot loader options might fix those issues. For example if a Surface Laptop 5 is also running Windows 10 in parallel, the additional parameters would be `acpi_osi='Windows 2020' pci=hpiosize=0`.
+
+1. [acpi_osi](https://forum.manjaro.org/t/how-to-choose-the-proper-acpi-kernel-argument/1405)
+2. [pci](https://github.com/linux-surface/linux-surface/issues/1082#issuecomment-2241851384)
 
 ### Thermald Setup
 
