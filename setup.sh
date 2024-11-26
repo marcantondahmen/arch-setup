@@ -70,7 +70,7 @@ sudo pacman -Syu --noconfirm --needed \
 	zsh 2>&1 | tee $log
 
 yayDir="$HOME/.yay"
-yayPkgs="autotiling google-chrome lazydocker polybar teams slack-desktop lssecret-git"
+yayPkgs="autotiling aws-cli-v2 google-chrome lazydocker polybar teams slack-desktop lssecret-git"
 installedApps="$HOME/.cache/installed"
 
 mkdir -p "$installedApps"
