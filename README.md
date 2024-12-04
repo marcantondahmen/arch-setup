@@ -19,6 +19,7 @@ This is a simple setup script that helps with installing applications, [dotfiles
     - [Example Dual-Monitor Setup](#example-dual-monitor-setup)
   - [Cursor Size](#cursor-size)
   - [Bluetooth](#bluetooth)
+    - [Enable Bluetooth After Sleep](#enable-bluetooth-after-sleep)
   - [Connect Google Drive](#connect-google-drive)
   - [Device Specific Issues](#device-specific-issues)
     - [Surface Laptops](#surface-laptops)
@@ -129,6 +130,31 @@ xrdb -merge ~/.Xresources
 ### Bluetooth
 
 The bluetooth utility `bluetoothctl` is included in this setup. You can follow [this guide](https://wiki.archlinux.org/title/Bluetooth#Pairing) in order to pair your devices.
+
+#### Enable Bluetooth After Sleep
+
+It could be that bluetooth will not work after resuming from sleep. In order to [fix](https://gist.github.com/andrebrait/961cefe730f4a2c41f57911e6195e444) this issue, `btusb` has to be unloaded, the `bluetooth` service has to be restarted and the the module loaded again.
+
+Therefore add the following script to `/lib/systemd/system-sleep/bt`:
+
+```bash
+#!/bin/sh
+case $1 in
+  post)
+    modprobe -r btusb
+    sleep 1
+    service bluetooth restart
+    sleep 1
+    modprobe btusb
+    ;;
+esac
+```
+
+Then make the file executable:
+
+```bash
+sudo chmod +x /lib/systemd/system-sleep/bt
+```
 
 ### Connect Google Drive
 
