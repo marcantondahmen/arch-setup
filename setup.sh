@@ -49,6 +49,7 @@ sudo pacman -Syu --noconfirm --needed \
 	python \
 	python-pip \
 	python-pynvim \
+	p7zip \
 	rclone \
 	ripgrep \
 	rofi \
