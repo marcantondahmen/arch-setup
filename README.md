@@ -133,27 +133,10 @@ The bluetooth utility `bluetoothctl` is included in this setup. You can follow [
 
 #### Enable Bluetooth After Sleep
 
-It could be that bluetooth will not work after resuming from sleep. In order to [fix](https://gist.github.com/andrebrait/961cefe730f4a2c41f57911e6195e444) this issue, `btusb` has to be unloaded, the `bluetooth` service has to be restarted and the the module loaded again.
-
-Therefore add the following script to `/lib/systemd/system-sleep/bt`:
+It could be that bluetooth will not work after resuming from sleep. Disabling USB autosuspending for bluetooth devices in `/etc/tlp.conf` might fix that issues.
 
 ```bash
-#!/bin/sh
-case $1 in
-  post)
-    modprobe -r btusb
-    sleep 1
-    service bluetooth restart
-    sleep 1
-    modprobe btusb
-    ;;
-esac
-```
-
-Then make the file executable:
-
-```bash
-sudo chmod +x /lib/systemd/system-sleep/bt
+USB_EXCLUDE_BTUSB=1
 ```
 
 ### Connect Google Drive
