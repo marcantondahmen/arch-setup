@@ -99,10 +99,6 @@ for item in $yayPkgs; do
 	fi
 done
 
-# Clean caches
-sudo pacman -Sc --noconfirm
-sudo yay -Sc --noconfirm
-
 # Replace i3lock with i3lock-color
 i3lockInstalled="$installedApps/i3lock-color"
 
