@@ -13,6 +13,7 @@ This is a simple setup script that helps with installing applications, [dotfiles
 
 - [Preperations](#preperations)
 - [Setup](#setup)
+- [Package and Kernel Updates](#package-and-kernel-updates)
 - [Optional Steps](#optional-steps)
   - [Authenticate to GitHub](#authenticate-to-github)
   - [Monitor Setup](#monitor-setup)
@@ -48,6 +49,20 @@ The basic setup is quite straight forward and requires the following steps:
 
 > [!NOTE]
 > Pacman logs can be found in `~/.arch-setup-logs`.
+
+## Package and Kernel Updates
+
+This script can be also used to update all packages. Note that **the kernel is excluded** from system updates. In order to run a full update including kernel updates, run:
+
+```bash
+pacman -Syu
+```
+
+You can confirm the latest kernel version by running:
+
+```bash
+uname -r
+```
 
 ## Optional Steps
 
