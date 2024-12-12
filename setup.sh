@@ -7,7 +7,11 @@ logDir="$HOME/.arch-setup-logs"
 log="$logDir/$(date +%y%m%d-%H%M%S)-pacman-log.txt"
 mkdir -p $logDir
 
-sudo pacman -Syu --noconfirm --needed \
+sudo pacman \
+	-Syu \
+	--ignore linux-surface,linux-surface-headers,linux,linux-headers \
+	--noconfirm \
+	--needed \
 	autorandr \
 	base-devel \
 	bat \
