@@ -55,10 +55,10 @@ The basic setup is quite straight forward and requires the following steps:
 This script can be also used to update all packages. Note that **the kernel is excluded** from system updates. In order to run a full update including kernel updates, run:
 
 ```bash
-pacman -Syu
+sudo pacman -Syu
 ```
 
-You can confirm the latest kernel version by running:
+You can confirm the latest kernel version by running after a reboot:
 
 ```bash
 uname -r
