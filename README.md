@@ -56,6 +56,11 @@ This script can be also used to update all packages. Note that **the kernel is e
 
 ```bash
 sudo pacman -Syu
+
+cd ~/.yay/yay
+git pull
+makepkg -si
+yay -Syu
 ```
 
 You can confirm the latest kernel version by running after a reboot:
