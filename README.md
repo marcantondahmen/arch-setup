@@ -122,7 +122,7 @@ Setting up a dual-monitor configuration where a laptop has _sometimes_ a seconda
    xrandr --output DP-2 --auto --scale 1 --right-of eDP-1 --primary
    ```
 
-   In case there is an error showing up when running the commands above, the actual framebuffer might be too small. In such a case, the framebuffer has to be set using the `--fb` argument:
+   In case there is an error showing up when running the commands above, the actual framebuffer might be too small. This can happen when connecting an external monitor using a DisplayPort cable. In such a case, the framebuffer has to be set using the `--fb` argument:
 
    ```bash
    xrandr --fb 4816x1504 \
