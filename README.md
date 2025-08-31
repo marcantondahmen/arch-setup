@@ -122,6 +122,14 @@ Setting up a dual-monitor configuration where a laptop has _sometimes_ a seconda
    xrandr --output DP-2 --auto --scale 1 --right-of eDP-1 --primary
    ```
 
+   In case there is an error showing up when running the commands above, the actual framebuffer might be too small. In such a case, the framebuffer has to be set using the `--fb` argument:
+
+   ```bash
+   xrandr --fb 4816x1504 \
+     --output eDP-1 --mode 2256x1504 --pos 0x0 \
+     --output DP-2-6-6 --mode 2560x1440 --pos 2256x0 --primary
+   ```
+
    Note that in this step the Laptop screen is configured as well!
 
 5. Save the _home office_ configuration:
