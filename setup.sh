@@ -224,16 +224,17 @@ if [ ! -d "$HOME/dotfiles" ]; then
 	)
 fi
 
-echo "--------------------------------------------------"
-echo "Setting up Neovim ..."
-
 if [ ! -d "$HOME/.config/nvim/" ]; then
+	echo "--------------------------------------------------"
+	echo "Setting up Neovim ..."
+
 	git clone https://github.com/marcantondahmen/nvim-config.git ~/.config/nvim
 	npm install -g neovim
 	npm install -g tree-sitter-cli
+
+	echo
+	echo "Please open Neovim and run PackerSync command in order to install plugins."
 fi
 
 echo
-echo "Please open Neovim and run PackerSync command in order to install plugins."
-echo
-echo "Afterwards, reboot your machine!"
+echo "Please reboot your machine!"
