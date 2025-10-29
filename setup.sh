@@ -68,7 +68,6 @@ sudo pacman \
 	ttf-jetbrains-mono-nerd \
 	unzip \
 	wezterm \
-	xautolock \
 	xclip \
 	xorg-xinput \
 	xss-lock \
@@ -76,7 +75,7 @@ sudo pacman \
 	zsh 2>&1 | tee $log
 
 yayDir="$HOME/.yay"
-yayPkgs="autotiling aws-cli-v2 google-chrome lazydocker polybar teams slack-desktop lssecret-git"
+yayPkgs="autotiling aws-cli-v2 google-chrome lazydocker polybar teams slack-desktop lssecret-git xautolock"
 installedApps="$HOME/.cache/installed"
 
 mkdir -p "$installedApps"
