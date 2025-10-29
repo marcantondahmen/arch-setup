@@ -52,7 +52,14 @@ The basic setup is quite straight forward and requires the following steps:
 
 ## Package and Kernel Updates
 
-This script can be also used to update all packages. Note that **the kernel is excluded** from system updates. In order to run a full update including kernel updates, run:
+This script can be also used to update all packages.
+
+```bash
+bash setup.sh
+```
+
+> [!NOTE]
+> Note that **the kernel is excluded** from system updates. In order to run a full update including kernel updates, run:
 
 ```bash
 sudo pacman -Syu
