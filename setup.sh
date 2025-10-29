@@ -35,6 +35,7 @@ sudo pacman \
 	hsetroot \
 	keepassxc \
 	inter-font \
+	jq \
 	libnotify \
 	maim \
 	man-db \
