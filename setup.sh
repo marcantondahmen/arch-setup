@@ -58,6 +58,7 @@ sudo pacman \
 	rclone \
 	ripgrep \
 	rofi \
+	rsync \
 	sad \
 	starship \
 	stow \
