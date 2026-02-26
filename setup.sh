@@ -70,6 +70,7 @@ sudo pacman \
 	unzip \
 	wezterm \
 	xclip \
+	xdotool \
 	xorg-xinput \
 	xss-lock \
 	yazi \
