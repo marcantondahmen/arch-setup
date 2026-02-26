@@ -139,6 +139,8 @@ if [ ! -d "$HOME/.nvm" ]; then
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 	nvm install --lts
+else
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
 fi
 
 echo "--------------------------------------------------"
