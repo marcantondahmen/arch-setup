@@ -62,6 +62,7 @@ sudo pacman \
 	sad \
 	starship \
 	stow \
+	terminus-font \
 	tig \
 	tlp \
 	tmux \
