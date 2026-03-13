@@ -11,31 +11,74 @@ This is a simple setup script that helps with installing applications, [dotfiles
 
 <!-- vim-markdown-toc GFM -->
 
-- [Preperations](#preperations)
-- [Setup](#setup)
+- [Installation](#installation)
+  - [1. Installing Arch](#1-installing-arch)
+  - [2. On First Boot](#2-on-first-boot)
+  - [3. Installing Packages and Dotfiles](#3-installing-packages-and-dotfiles)
 - [Package and Kernel Updates](#package-and-kernel-updates)
 - [Optional Steps](#optional-steps)
   - [Authenticate to GitHub](#authenticate-to-github)
   - [Monitor Setup](#monitor-setup)
     - [Example Dual-Monitor Setup](#example-dual-monitor-setup)
+  - [Startup Font Size for Encrypted Volumes](#startup-font-size-for-encrypted-volumes)
   - [Cursor Size](#cursor-size)
   - [Bluetooth](#bluetooth)
   - [Connect Google Drive](#connect-google-drive)
   - [Device Specific Issues](#device-specific-issues)
     - [Surface Laptops](#surface-laptops)
-  - [Thermald Setup](#thermald-setup)
+      - [Thermald Setup](#thermald-setup)
 
 <!-- vim-markdown-toc -->
 
-## Preperations
+## Installation
 
-This setup assumes that Arch-Linux is installed using the `archinstall` command. During the installation process it is required that _i3-wm_ is selected as the window manager when selecting the environment. Also make sure to select `LightDM/slick-greeter` as your greeter.
+The installation process can be divided into three main steps.
 
-When the installation has finished, simply boot into the fresh installation, open the default terminal follow the steps below.
+### 1. Installing Arch
 
-## Setup
+This setup assumes that a bootable USB drive with the Arch ISO was already created. Arch-Linux will be installed using the `archinstall` command. A working internet connection is required during installation and can be established using an iPhone hotspot via USB.
 
-The basic setup is quite straight forward and requires the following steps:
+During the installation process choose the following configuration:
+
+1. Environment: `i3wm` with the `lightdm-slick-greeter`.
+2. Network configuration: [NetworkManager](https://wiki.archlinux.org/title/NetworkManager) (default backend)
+3. Additional packages:
+   - base-devel
+   - bash
+   - broadcom-wl (for macs)
+   - curl
+   - firefox
+   - git
+   - vim (just in case)
+
+When the installation has finished, remove th USB drive and boot into the fresh installation.
+
+### 2. On First Boot
+
+After running `archinstall` successfully and booting the first time into the fresh installation, the following steps are required in order to set up a readable terminal and connect to WiFi.
+
+1. Open the default `xterm` terminal with `alt+enter`. Optionally start a new terminal window from there with a larger font size using
+
+   ```bash
+   xterm -fa 'Monospace' -fs 24 &
+   ```
+
+2. Start the NetworkManager:
+
+   ```bash
+   sudo systemctl start NetworkManager
+   ```
+
+3. Connect to a WiFi:
+
+   ```bash
+   nmcli device wifi list
+   nmcli device wifi connect [SSID] password [PASSWORD]
+   ```
+
+### 3. Installing Packages and Dotfiles
+
+Now, install all packages, dotfiles and Neovim configuration.
 
 1. Download and run the setup script:
 
@@ -147,6 +190,24 @@ Setting up a dual-monitor configuration where a laptop has _sometimes_ a seconda
 
 Now changes of the connected monitors should be detected correctly.
 
+### Startup Font Size for Encrypted Volumes
+
+On a high-dpi laptop, the font size will be quite small when entering the passphrase for encrypted drives. Follow these steps in order to use another font:
+
+1. Edit `/etc/vconsole.conf` and add or change:
+
+   ```bash
+   FONT=ter-v32n
+   ```
+
+2. Rebuild the initramfs:
+
+   ```bash
+   sudo mkinitcpio -P
+   ```
+
+3. Reboot
+
 ### Cursor Size
 
 It also might be needed to set a correct size for the cursor. The cursor size can be defined by adding the following line to `~/.Xresources`:
@@ -203,7 +264,7 @@ Also it could be that a lot of ACPI errors show up on shutdown and in `journalct
 1. [acpi_osi](https://forum.manjaro.org/t/how-to-choose-the-proper-acpi-kernel-argument/1405)
 2. [pci](https://github.com/linux-surface/linux-surface/issues/1082#issuecomment-2241851384)
 
-### Thermald Setup
+##### Thermald Setup
 
 Generally, using `thermald` can help to keep your quite and cool. Since this step is entirely optional, the default setup doesn't include `thermald` out of the box. Follow these steps to install and configure the _thermald_ service.
 
@@ -224,4 +285,4 @@ Generally, using `thermald` can help to keep your quite and cool. Since this ste
 
 ---
 
-&copy; 2024 Marc Anton Dahmen, MIT license
+&copy; 2024-2026 Marc Anton Dahmen, MIT license
