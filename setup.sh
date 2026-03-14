@@ -234,6 +234,9 @@ if [ ! -d "$HOME/dotfiles" ]; then
 		git clone https://github.com/marcantondahmen/dotfiles.git $HOME/dotfiles
 		cd $HOME/dotfiles
 		stow */
+		git remote set-url origin git@github.com:marcantondahmen/dotfiles.git
+		pwd
+		git remote -v
 	)
 fi
 
@@ -244,6 +247,13 @@ if [ ! -d "$HOME/.config/nvim/" ]; then
 	git clone https://github.com/marcantondahmen/nvim-config.git ~/.config/nvim
 	npm install -g neovim
 	npm install -g tree-sitter-cli
+
+	(
+		cd "$HOME/.config/nvim/"
+		git remote set-url origin git@github.com:marcantondahmen/nvim-config.git
+		pwd
+		git remote -v
+	)
 
 	echo
 	echo "Please open Neovim and run PackerSync command in order to install plugins."
