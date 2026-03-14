@@ -31,6 +31,7 @@ sudo pacman \
 	git \
 	github-cli \
 	gitui \
+	gcr-4 \
 	gnome-keyring \
 	hsetroot \
 	keepassxc \
@@ -151,6 +152,14 @@ chsh -s $(which zsh)
 if [ ! -d "$HOME/.zsh/zsh-autosuggestions/" ]; then
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 fi
+
+echo "--------------------------------------------------"
+echo "Setting up ssh-agent ..."
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
+systemctl --user enable gcr-ssh-agent.socket
+systemctl --user start gcr-ssh-agent.socket
+echo 'export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh' >ssh_auth_gcr.sh
+sudo mv ssh_auth_gcr.sh /etc/profile.d/ssh_auth_gcr.sh
 
 echo "--------------------------------------------------"
 echo "Setting up Docker ..."

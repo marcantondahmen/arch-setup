@@ -17,6 +17,7 @@ This is a simple setup script that helps with installing applications, [dotfiles
   - [3. Installing Packages and Dotfiles](#3-installing-packages-and-dotfiles)
 - [Package and Kernel Updates](#package-and-kernel-updates)
 - [Optional Steps](#optional-steps)
+  - [SSH Agent](#ssh-agent)
   - [Authenticate to GitHub](#authenticate-to-github)
   - [Monitor Setup](#monitor-setup)
     - [Example Dual-Monitor Setup](#example-dual-monitor-setup)
@@ -122,6 +123,10 @@ uname -r
 ## Optional Steps
 
 The following steps are optional and might also depend on the machine Arch-Linux is running on.
+
+### SSH Agent
+
+This setup ships with a fully configured SSH Agent that also stores passphrases of keys in the `gnome-keyring`.
 
 ### Authenticate to GitHub
 
