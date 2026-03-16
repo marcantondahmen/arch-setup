@@ -16,6 +16,7 @@ This is a simple setup script that helps with installing applications, [dotfiles
   - [2. On First Boot](#2-on-first-boot)
   - [3. Installing Packages and Dotfiles](#3-installing-packages-and-dotfiles)
 - [Package and Kernel Updates](#package-and-kernel-updates)
+- [Fixing a Broken Installation](#fixing-a-broken-installation)
 - [Optional Steps](#optional-steps)
   - [SSH Agent](#ssh-agent)
   - [Authenticate to GitHub](#authenticate-to-github)
@@ -119,6 +120,56 @@ You can confirm the latest kernel version by running after a reboot:
 ```bash
 uname -r
 ```
+
+## Fixing a Broken Installation
+
+In order to `chroot` into a broken installation with an encrypted drive (LVM on LUKS) follow the steps below. This guide assumes that the root partition is on `/dev/sda2` while the boot partition is on `/dev/sda1`.
+
+1. Open container:
+
+   ```bash
+   cryptsetup open /dev/sda2 cryptroot
+   ```
+
+2. Activate LVM volume:
+
+   ```bash
+   vgscan
+   vgchange -ay
+   ```
+
+3. Mount volumes (mkdir mountpoints if needed):
+
+   ```bash
+   mount -t btrfs -o subvol=@ /dev/mapper/[VGNAME-root] /mnt
+   mount -t btrfs -o subvol=@home /dev/mapper/VGNAME-root_lv /mnt/home
+   mount -t btrfs -o subvol=@log /dev/mapper/VGNAME-root_lv /mnt/log
+   mount -t btrfs -o subvol=@pkg /dev/mapper/VGNAME-root_lv /mnt/pkg
+   mount /sda1 /mnt/boot
+   ```
+
+4. Chroot into system
+
+   ```bash
+   arch-chroot /mnt
+   ```
+
+5. Do whatever is required to fix the installation like:
+
+   ```bash
+   pacman -Syu
+   pacman -S linux
+   bootctl update
+   mkinitcpio -P
+   ```
+
+6. In order to exit the session run:
+
+   ```bash
+   exit
+   umount -R /mnt
+   reboot
+   ```
 
 ## Optional Steps
 
