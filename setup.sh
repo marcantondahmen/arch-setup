@@ -9,7 +9,7 @@ mkdir -p $logDir
 
 sudo pacman \
 	-Syu \
-	--ignore linux-surface,linux-surface-headers,linux,linux-headers \
+	--ignore linux-surface,linux-surface-headers,linux,linux-headers,linux-lts,linux-lts-headers \
 	--noconfirm \
 	--needed \
 	autorandr \

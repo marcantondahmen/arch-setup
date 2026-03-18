@@ -17,6 +17,7 @@ This is a simple setup script that helps with installing applications, [dotfiles
   - [3. Installing Packages and Dotfiles](#3-installing-packages-and-dotfiles)
 - [Package and Kernel Updates](#package-and-kernel-updates)
 - [Fixing a Broken Installation](#fixing-a-broken-installation)
+- [LTS Kernel](#lts-kernel)
 - [Optional Steps](#optional-steps)
   - [SSH Agent](#ssh-agent)
   - [Authenticate to GitHub](#authenticate-to-github)
@@ -42,9 +43,10 @@ This setup assumes that a bootable USB drive with the Arch ISO was already creat
 
 During the installation process choose the following configuration:
 
-1. Environment: `i3wm` with the `lightdm-slick-greeter`.
-2. Network configuration: [NetworkManager](https://wiki.archlinux.org/title/NetworkManager) (default backend)
-3. Additional packages:
+1. Bootloader: Systemd Boot
+2. Environment: `i3wm` with the `lightdm-slick-greeter`.
+3. Network configuration: [NetworkManager](https://wiki.archlinux.org/title/NetworkManager) (default backend)
+4. Additional packages:
    - base-devel
    - bash
    - broadcom-wl (for macs)
@@ -170,6 +172,49 @@ In order to `chroot` into a broken installation with an encrypted drive (LVM on 
    umount -R /mnt
    reboot
    ```
+
+## LTS Kernel
+
+It is recommended to also install the `linux-lts` kernel as fallback. The LTS kerne can be added as follows:
+
+1. Install the following packages:
+
+   ```bash
+   sudo pacman -S linux-headers linux-lts linux-lts-headers dkms
+   ```
+
+   Also install the DKMS wifi driver in case you use an older Macbook:
+
+   ```bash
+   sudo pacman -S broadcom-wl-dkms
+   ```
+
+   Confirm replacing the driver when being asked.
+
+2. Create a bootloader entry:
+
+   ```bash
+   cd /boot/loader/entries/
+   sudo cp [date]_linux.conf [date]_linux-lts.conf
+   sudo vim [date]_linux-lts.conf
+   ```
+
+   Then edit the `title`, `linux` and `initrd` values.
+
+   ```bash
+   title   Arch Linux LTS (linux-lts)
+   linux   /vmlinuz-linux-lts
+   initrd  /initramfs-linux-lts.img
+   options ...
+   ```
+
+3. Optionally set the default kernel in the boot menu in `/boot/loader/loader.conf`:
+
+   ```bash
+   default [date]_linux-lts.conf
+   ```
+
+4. Reboot and verify using `uname -r`.
 
 ## Optional Steps
 
