@@ -144,9 +144,9 @@ In order to `chroot` into a broken installation with an encrypted drive (LVM on 
 
    ```bash
    mount -t btrfs -o subvol=@ /dev/mapper/[VGNAME-root] /mnt
-   mount -t btrfs -o subvol=@home /dev/mapper/VGNAME-root_lv /mnt/home
-   mount -t btrfs -o subvol=@log /dev/mapper/VGNAME-root_lv /mnt/log
-   mount -t btrfs -o subvol=@pkg /dev/mapper/VGNAME-root_lv /mnt/pkg
+   mount -t btrfs -o subvol=@home /dev/mapper/[VGNAME-root] /mnt/home
+   mount -t btrfs -o subvol=@log /dev/mapper/[VGNAME-root] /mnt/log
+   mount -t btrfs -o subvol=@pkg /dev/mapper/[VGNAME-root] /mnt/pkg
    mount /sda1 /mnt/boot
    ```
 
@@ -175,7 +175,7 @@ In order to `chroot` into a broken installation with an encrypted drive (LVM on 
 
 ## LTS Kernel
 
-It is recommended to also install the `linux-lts` kernel as fallback. The LTS kerne can be added as follows:
+It is recommended to also install the `linux-lts` kernel as fallback. The LTS kernel can be added as follows:
 
 1. Install the following packages:
 
