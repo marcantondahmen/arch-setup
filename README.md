@@ -21,6 +21,7 @@ This is a simple setup script that helps with installing applications, [dotfiles
 - [Optional Steps](#optional-steps)
   - [SSH Agent](#ssh-agent)
   - [Authenticate to GitHub](#authenticate-to-github)
+  - [Install Astrill VPN](#install-astrill-vpn)
   - [Monitor Setup](#monitor-setup)
     - [Example Dual-Monitor Setup](#example-dual-monitor-setup)
   - [Startup Font Size for Encrypted Volumes](#startup-font-size-for-encrypted-volumes)
@@ -231,6 +232,33 @@ This setup ships with the _GitHub CLI_. It can be used to authenticate your mach
 ```bash
 gh auth login
 ```
+
+### Install Astrill VPN
+
+In order to get Astrill running, follow these steps:
+
+1. Install GTK2 using `yay -S gtk2`.
+2. Go to [astrill.com](https://www.astrill.com/de/download/linux) and download the CLI installer.
+3. Make the downloaded file executable and then run it.
+
+   ```bash
+   cd ~/Downloads
+   chmod + x astrill-setup-linux64.sh && ./astrill-setup-linux64.sh
+   ```
+
+4. Fix GTK errors with:
+
+   ```bash
+   echo 'gtk-theme-name = "Raleigh"' > ~/.gtkrc-2.0
+   ```
+
+5. Createl a symlink with:
+
+   ```bash
+   sudo ln -s /usr/local/Astrill/astrill /usr/local/bin/astrill
+   ```
+
+6. Run `astrill` to start the app.
 
 ### Monitor Setup
 
