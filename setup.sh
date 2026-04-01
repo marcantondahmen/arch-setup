@@ -49,6 +49,7 @@ sudo pacman \
 	noto-fonts-emoji \
 	npm \
 	php \
+	php-gd \
 	picom \
 	playerctl \
 	postgresql-libs \
