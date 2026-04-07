@@ -85,11 +85,11 @@ sudo pacman \
 	zsh 2>&1 | tee $log
 
 # Install pinned Neovim version.
-sudo pacman -Rs neovim
+sudo pacman -Rs neovim 2>/dev/null
 
 nvimDir=/opt/nvim/${NVIM_VERSION}
 
-if [ ! -f "$nvimDir" ]; then
+if [ ! -d "$nvimDir" ]; then
 	echo "Installing Neovim v${NVIM_VERSION} ..."
 
 	(
