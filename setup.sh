@@ -1,5 +1,13 @@
 #!/bin/bash
 
+NVIM_VERSION="0.11.7"
+
+echo "--------------------------------------------------"
+echo "Configure ignored packages ..."
+
+sudo sed -i 's/^#\?\s*IgnorePkg.*/IgnorePkg = linux-surface linux-surface-headers linux linux-headers linux-lts linux-lts-headers/' /etc/pacman.conf
+cat /etc/pacman.conf | grep ^IgnorePkg
+
 echo "--------------------------------------------------"
 echo "Installing packages ..."
 
@@ -9,7 +17,6 @@ mkdir -p $logDir
 
 sudo pacman \
 	-Syu \
-	--ignore linux-surface,linux-surface-headers,linux,linux-headers,linux-lts,linux-lts-headers \
 	--noconfirm \
 	--needed \
 	autorandr \
@@ -40,7 +47,6 @@ sudo pacman \
 	libnotify \
 	maim \
 	man-db \
-	neovim \
 	networkmanager \
 	network-manager-applet \
 	nodejs \
@@ -77,6 +83,25 @@ sudo pacman \
 	xss-lock \
 	yazi \
 	zsh 2>&1 | tee $log
+
+# Install pinned Neovim version.
+sudo pacman -Rs neovim
+
+nvimDir=/opt/nvim/${NVIM_VERSION}
+
+if [ ! -f "$nvimDir" ]; then
+	echo "Installing Neovim v${NVIM_VERSION} ..."
+
+	(
+		cd /tmp
+		curl -LO https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim-linux-x86_64.tar.gz
+		tar xzf nvim-linux-x86_64.tar.gz
+		sudo mkdir -p $(dirname "$nvimDir")
+		sudo mv nvim-linux-x86_64 $nvimDir
+		rm nvim-linux-x86_64.tar.gz
+		sudo ln -sf $nvimDir/bin/nvim /usr/local/bin/nvim
+	)
+fi
 
 yayDir="$HOME/.yay"
 yayPkgs="autotiling aws-cli-v2 google-chrome lazydocker polybar teams slack-desktop lssecret-git xautolock"

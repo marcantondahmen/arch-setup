@@ -85,6 +85,9 @@ After running `archinstall` successfully and booting the first time into the fre
 
 Now, install all packages, dotfiles and Neovim configuration.
 
+> [!NOTE]
+> Neovim is installed from the GitHub release page using a pinned version. The version can be configured using the `NVIM_VERSION` variable in `setup.sh`.
+
 1. Download and run the setup script:
 
    ```bash
