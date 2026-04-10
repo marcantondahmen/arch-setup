@@ -47,6 +47,7 @@ sudo pacman \
 	libnotify \
 	maim \
 	man-db \
+	mpv \
 	networkmanager \
 	network-manager-applet \
 	nodejs \
@@ -82,6 +83,8 @@ sudo pacman \
 	xorg-xinput \
 	xss-lock \
 	yazi \
+	yt-dlp \
+	ytfzf \
 	zsh 2>&1 | tee $log
 
 # Install pinned Neovim version.
