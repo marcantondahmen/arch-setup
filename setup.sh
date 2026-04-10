@@ -48,6 +48,7 @@ sudo pacman \
 	maim \
 	man-db \
 	mpv \
+	mpv-mpris \
 	networkmanager \
 	network-manager-applet \
 	nodejs \
