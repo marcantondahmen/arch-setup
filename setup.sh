@@ -259,6 +259,7 @@ if [ ! -d "$HOME/dotfiles" ]; then
 	echo "Cloning dotfiles ..."
 
 	(
+		rm -rf ~/.config/i3
 		git clone https://github.com/marcantondahmen/dotfiles.git $HOME/dotfiles
 		cd $HOME/dotfiles
 		stow */
