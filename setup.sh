@@ -45,6 +45,8 @@ sudo pacman \
 	inter-font \
 	jq \
 	libnotify \
+	libpng \
+	libimagequant \
 	maim \
 	man-db \
 	mpv \
